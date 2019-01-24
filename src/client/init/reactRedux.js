@@ -27,7 +27,7 @@ class ReactReduxInit {
     registerStateChange(name, getStateValue, onNewValue) {
         let stateRegistration = {
             name,
-            getStateValue, 
+            getStateValue,
             onNewValue,
             currentValue: undefined,
         };
@@ -37,7 +37,7 @@ class ReactReduxInit {
     init() {
         let initialState = undefined;
 
-        this._providers.forEach( provider => {
+        this._providers.forEach(provider => {
             if (provider.onInitialState !== undefined) {
                 initialState = provider.onInitialState(initialState);
             }
@@ -49,7 +49,7 @@ class ReactReduxInit {
         let dispatch = store.dispatch;
         let subscribeParams = { dispatch, store, history };
 
-        this._providers.forEach( provider => {
+        this._providers.forEach(provider => {
             if (provider.onStartApplication !== undefined) {
                 initialState = provider.onStartApplication(subscribeParams);
             }
@@ -57,18 +57,18 @@ class ReactReduxInit {
 
         exportValues(subscribeParams);
 
-        let subscribeProviders = this._providers.filter( provider => provider.onNewState !== undefined );
-        let changeManagerProviders = this._providers.filter( provider => provider.changeManager !== undefined );
+        let subscribeProviders = this._providers.filter(provider => provider.onNewState !== undefined);
+        let changeManagerProviders = this._providers.filter(provider => provider.changeManager !== undefined);
 
         if (changeManagerProviders.length > 0) {
-            changeManagerProviders.forEach( provider => {
-                provider.changeManager().forEach( changeManager => {
+            changeManagerProviders.forEach(provider => {
+                provider.changeManager().forEach(changeManager => {
                     this.registerStateChange(
                         changeManager.name,
                         (state) => changeManager.getValue(state),
                         (currentValue, previousValue, currentState, subscribeParams) => changeManager.onNewValue(currentValue, previousValue, currentState, subscribeParams)
                     );
-                } )
+                })
             });
         }
 
@@ -76,7 +76,7 @@ class ReactReduxInit {
             let currentState = undefined;
             let stateRegistrations = this._stateRegistrations;
 
-            exportValues({stateRegistrations});
+            exportValues({ stateRegistrations });
 
             this._unsubscribe = store.subscribe(() => {
                 let previousState = currentState;
@@ -91,14 +91,14 @@ class ReactReduxInit {
                 });
 
                 if (previousState !== currentState) {
-                    subscribeProviders.map( provider => provider.onNewState(currentState, subscribeParams) );
+                    subscribeProviders.map(provider => provider.onNewState(currentState, subscribeParams));
                 }
             });
         }
 
-        this._initView(store, history, this._rootElement, this._routes); 
+        this._initView(store, history, this._rootElement, this._routes);
 
-        this._providers.forEach( provider => {
+        this._providers.forEach(provider => {
             if (provider.onInit !== undefined) {
                 provider.onInit();
             }

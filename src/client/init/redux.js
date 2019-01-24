@@ -25,7 +25,7 @@ export default (baseUrl, initialState, reducerCreator) => {
         reducer,
         initialState,
         compose(
-            applyMiddleware(...middleware), 
+            applyMiddleware(...middleware),
             ...enhancers
         )
     );

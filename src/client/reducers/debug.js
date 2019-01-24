@@ -6,7 +6,7 @@ export default (state, action) => {
     state = state || initialState;
 
     if (configDao.config.useDebug) {
-        console.log('action: ['+action.type+']', action);
+        console.log('action: [' + action.type + ']', action);
     }
 
     return state;
