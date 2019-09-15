@@ -2,8 +2,9 @@ import React from 'react';
 import { Input, Form, Button } from 'semantic-ui-react';
 import hot from './utils/hot';
 
-const TodoNewItem = ({ current, onNew, onUpdateCurrent }) =>
-    <div className='newItem'>
+const TodoNewItem = ({ current, onNew, onUpdateCurrent }) => { 
+    current = current || '';
+    return <div className='newItem'>
         <Form onSubmit={e => {
             e.preventDefault();
             onNew(current);
@@ -13,5 +14,5 @@ const TodoNewItem = ({ current, onNew, onUpdateCurrent }) =>
         </Form>
     </div>
     ;
-
+}
 export default hot(module, TodoNewItem);
