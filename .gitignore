@@ -1,6 +1,6 @@
 data/
 dist/
-dist-server/
+dist-deploy/
 node_modules/
 src/server/config/*
 storybook-static
