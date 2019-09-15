@@ -13,7 +13,7 @@ export const validate = () => async (dispatch) => {
         dispatch({type: VALIDATE_MESSAGE_RECEIVED, values});
     } catch (err) {
         let error='An error has occured ['+err+']';
-        log(error);
+        console.log(error);
         dispatch({type: VALIDATE_MESSAGE_FAILED, message:error});
     }
 };
