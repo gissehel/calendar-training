@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=development babel-node ./src/server.js",
     "debug": "NODE_ENV=development babel-node --inspect ./src/server.js",
-    "deploy": "rimraf ./dist-deploy && yarn run build && mkdirp ./dist-deploy && cpx \"./dist/**\" ./dist-deploy/dist && cpx ./package.json ./dist-deploy && cpx ./webpack.config.js ./dist-deploy && cd ./dist-deploy && yarn install --prod",
+    "deploy": "(rimraf ./dist-deploy || cd .) && yarn run build && mkdirp ./dist-deploy && cpx \"./dist/**\" ./dist-deploy/dist && cpx ./package.json ./dist-deploy && cpx ./webpack.config.js ./dist-deploy && cd ./dist-deploy && yarn install --prod",
     "build-client": "NODE_ENV=production ./node_modules/.bin/babel-node ./node_modules/.bin/webpack --mode production",
     "build-client-dev": "NODE_ENV=development ./node_modules/.bin/babel-node ./node_modules/.bin/webpack --mode development",
     "build-server": "NODE_ENV=production babel ./src -d dist",
