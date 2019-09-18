@@ -41,45 +41,36 @@ class FileLog {
 
 export default class Log {
     constructor(params) {
-        let { pathname, filename, filelog, current_user, current_ip } = params || {};
+        let { pathname, filename, filelog, data } = params || {};
+        data = data || {};
         if (filelog !== undefined) {
             this._filelog = filelog;
         } else if (pathname !== undefined && filename !== undefined) {
             this._filelog = new FileLog(pathname, filename);
         }
-        this._current_user = null;
-        this._current_ip = null;
-        if (current_user !== undefined) {
-            this._current_user = current_user;
-        }
-        if (current_ip !== undefined) {
-            this._current_ip = current_ip;
-        }
+        this._data = data
     }
 
-    set current_user(value) {
-        this._current_user = value;
+    getData(name) {
+        return this._data[name];
     }
 
-    get current_user() {
-        return this._current_user || '-';
+    getSubLogger(data) {
+        data = data || {};
+        data = {...this._data, ...data};
+        return new Log({ filelog: this._filelog, data });
     }
 
-    get current_ip() {
-        return this._current_ip || '-';
-    }
-
-    getSubLogger({ user, ip }) {
-        const current_user = user || this._current_user;
-        const current_ip = ip || this._current_ip;
-        return new Log({ filelog: this._filelog, current_user, current_ip });
+    _format(level, line, date) {
+        const ip = (this.getData('ip') || '').padEnd(15, ' ');
+        const user = (this.getData('user') || '').padEnd(12, ' ');
+        level = level.padEnd(6, ' ');
+        return `${date} ${ip} ${level} ${user} ${line}`;
     }
 
     add(level, line) {
         const date = (new Date()).toISOString().replace('T', ' ').replace('Z', '');
-        const ip = (this._current_ip || '').padEnd(15, ' ');
-        const user = this.current_user.padEnd(12, ' ');
-        let message = `${date} ${ip} ${level.padEnd(6, ' ')} ${user} ${line}`;
+        const message = this._format(level, line, date);
         // this is not a debug line, it's the official way to output the logs in the console.
         console.log(message);
         if (this._filelog !== undefined) {
