@@ -10,8 +10,6 @@ import configDao from './dao/config';
 import * as question from './actions/question';
 
 import DebugService from './service/debug';
-import StorageService from './service/storage';
-import ServiceWorkerService from './service/serviceWorker';
 
 Object.assign(actions, { question });
 const reactReduxInit = new ReactReduxInit(initView, initRedux);
@@ -23,8 +21,6 @@ reactReduxInit.routes = Routes;
 
 [
     DebugService, 
-    StorageService, 
-    ServiceWorkerService,
 ].map( (serviceClass) => new serviceClass(reactReduxInit) );
 
 reactReduxInit.init();
