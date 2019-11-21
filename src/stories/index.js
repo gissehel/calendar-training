@@ -5,9 +5,9 @@ import {action} from '@storybook/addon-actions';
 // addDecorator(StoryRouter({'*':action('router')}));
 
 let stories = [
-    'messageBox',
-    'todoList',
-    'todoNewItem',
+    'quizzmain',
+    'question',
+    'result',
 ];
 
 stories.forEach(element => {

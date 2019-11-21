@@ -7,14 +7,13 @@ import reducer from './reducers/app';
 import Routes from './views/routes/index';
 import configDao from './dao/config';
 
-import * as messageBox from './actions/messageBox';
-import * as todo from './actions/todo';
+import * as question from './actions/question';
 
 import DebugService from './service/debug';
 import StorageService from './service/storage';
 import ServiceWorkerService from './service/serviceWorker';
 
-Object.assign(actions, { messageBox, todo });
+Object.assign(actions, { question });
 const reactReduxInit = new ReactReduxInit(initView, initRedux);
 
 reactReduxInit.rootElement = document.getElementsByTagName('body')[0].children[0];
