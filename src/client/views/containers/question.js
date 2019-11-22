@@ -4,9 +4,9 @@ import hot from './utils/hot';
 
 const MapStateToProps = (state) => {
     return {
-        title : `${state.question.count} - ${state.question.current_question ? state.question.current_question.dateStr : "-"}`,
+        title: `${state.question.count} - ${state.question.current_question ? state.question.current_question.dateStr : "-"}${state.question.is_answer ? " - " + state.question.time : ""}`,
         selectedAnswer: state.question.current_answer,
-        rightAnswer: state.question.is_answer ? state.question.current_question.expectedResult : null, 
+        rightAnswer: state.question.is_answer ? state.question.current_question.expectedResult : null,
     };
 };
 

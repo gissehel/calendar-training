@@ -10,6 +10,7 @@ const initalState = {
     times_wrong: [],
     current_question: null,
     current_answer: null,
+    time: null,
     is_start: true,
     is_question: false,
     is_answer: false,
@@ -40,6 +41,7 @@ export default (state, action) => {
                 let is_answer = false;
                 let is_question = true;
                 let is_result = false;
+                let time = null;
                 let current_answer = null;
                 let current_question = null;
                 let question_start = new Date();
@@ -50,7 +52,7 @@ export default (state, action) => {
                     count++;
                     current_question = findNewDay();
                 }
-                state = { ...state, count, current_question, question_start, current_answer, is_answer, is_question, is_result };
+                state = { ...state, count, current_question, question_start, current_answer, time, is_answer, is_question, is_result };
                 break;
             }
         case PROVIDE_ANSWER:
@@ -66,7 +68,7 @@ export default (state, action) => {
                     count_wrong++;
                     times_wrong = [...times_wrong, time];
                 }
-                state = { ...state, count_right, count_wrong, times_right, times_wrong, current_answer, is_answer: true, question_start: null };
+                state = { ...state, count_right, count_wrong, times_right, times_wrong, current_answer, time, is_answer: true, question_start: null };
                 break;
             }
     }
