@@ -5,6 +5,8 @@ import QuizzMain from "../containers/quizzmain";
 import Result from "../containers/result";
 import hot from './utils/hot';
 
+import './mainPage.css'
+
 const MainPage = ({ is_start, is_question, is_answer, is_result }) => {
     // console.log({ is_start, is_question, is_answer, is_result });
     return <div className='mainPage'>
