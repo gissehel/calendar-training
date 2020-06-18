@@ -15,8 +15,6 @@ const MapDispatchToProps = (dispatch) => {
 
     return {
         onAnswer: (day) => dispatch(actions.question.answer(day)),
-        onCancel: () => dispatch(actions.question.nextQuestion()),
-        onExit: () => dispatch(actions.question.nextQuestion()),
     };
 };
 

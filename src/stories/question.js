@@ -12,8 +12,6 @@ storiesOf('Question', module)
     return <Question
         title='7 novembre 1939'
         onAnswer={onAnswer}
-        onCancel={action('onCancel')}
-        onExit={action('onExit')}
      />;
   })
   .add('+ right answer', () => {
@@ -22,8 +20,6 @@ storiesOf('Question', module)
         selectedAnswer='2'
         rightAnswer='2'
         onAnswer={onAnswer}
-        onCancel={action('onCancel')}
-        onExit={action('onExit')}
      />;
   })
   .add('+ wrong answer', () => {
@@ -32,8 +28,6 @@ storiesOf('Question', module)
         selectedAnswer='3'
         rightAnswer='2'
         onAnswer={onAnswer}
-        onCancel={action('onCancel')}
-        onExit={action('onExit')}
      />;
   })
 

@@ -7,6 +7,7 @@ import {action} from '@storybook/addon-actions';
 let stories = [
     'quizzmain',
     'question',
+    'nextButton',
     'result',
 ];
 

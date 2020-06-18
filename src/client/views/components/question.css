@@ -2,3 +2,7 @@
     margin-top: 10px;
     text-align: center;
 }
+
+.ui.button {
+    margin-bottom: 4px;
+}
