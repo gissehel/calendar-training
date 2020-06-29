@@ -1,14 +1,24 @@
 import React from 'react';
 
-import { Segment, Message, Button } from 'semantic-ui-react';
-import hot from './utils/hot';
+import { Segment, Button } from 'semantic-ui-react';
+import { bindKey, unbindKey } from './utils/KeyboardManager';
 
 import './quizzmain.css';
 
-const QuizzMain = ({ onStart }) =>
-    <Segment>
-        <Button onClick={()=>onStart()}>Start</Button>
-    </Segment>
-;
+class QuizzMain extends React.Component {
+    componentDidMount() {
+        bindKey(()=>this.props.onStart(),' ')
+    }
+    componentWillUnmount() {
+        unbindKey(' ')
+    }
+    render() {
+        let { onStart } = this.props;
 
-export default hot(module, QuizzMain);
+        return <Segment>
+            <Button onClick={() => onStart()}>Start</Button>
+        </Segment>
+    }
+}
+
+export default QuizzMain;

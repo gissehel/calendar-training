@@ -1,7 +1,10 @@
 import actions from "../../actions";
 import QuizzMain from "../components/quizzmain";
-import hot from './utils/hot';
+import { connect } from 'react-redux';
 
+/**
+ * @param {import("../../reducers/app").State} state 
+ */
 const MapStateToProps = (state) => {
     return {
     };
@@ -15,5 +18,4 @@ const MapDispatchToProps = (dispatch) => {
     };
 };
 
-
-export default hot(module, MapStateToProps, MapDispatchToProps, QuizzMain);
+export default connect(MapStateToProps, MapDispatchToProps)(QuizzMain);

@@ -1,12 +1,16 @@
 import actions from "../../actions";
 import Question from "../components/question";
-import hot from './utils/hot';
+import { connect } from 'react-redux';
 
+/**
+ * @param {import("../../reducers/app").State} state 
+ */
 const MapStateToProps = (state) => {
     return {
         title: `${state.question.count} - ${state.question.current_question ? state.question.current_question.dateStr : "-"}${state.question.is_answer ? " - " + state.question.time : ""}`,
         selectedAnswer: state.question.current_answer,
         rightAnswer: state.question.is_answer ? state.question.current_question.expectedResult : null,
+        lang: state.question.lang,
     };
 };
 
@@ -18,5 +22,4 @@ const MapDispatchToProps = (dispatch) => {
     };
 };
 
-
-export default hot(module, MapStateToProps, MapDispatchToProps, Question);
+export default connect(MapStateToProps, MapDispatchToProps)(Question);

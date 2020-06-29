@@ -1,16 +1,16 @@
-import actions from "../../actions";
 import MainPage from "../components/mainPage";
-import hot from './utils/hot';
+import { connect } from 'react-redux';
 
+/**
+ * @param {import("../../reducers/app").State} state 
+ */
 const MapStateToProps = (state) => {
-    const v= {
+    return {
         is_start: state.question.is_start,
         is_question: state.question.is_question,
         is_answer: state.question.is_answer,
         is_result: state.question.is_result,
     };
-    console.log({q : state.question, v})
-    return v;
 };
 
 const MapDispatchToProps = (dispatch) => {
@@ -21,4 +21,4 @@ const MapDispatchToProps = (dispatch) => {
 };
 
 
-export default hot(module, MapStateToProps, MapDispatchToProps, MainPage);
+export default connect(MapStateToProps, MapDispatchToProps)(MainPage);

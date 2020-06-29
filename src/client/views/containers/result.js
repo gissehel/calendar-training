@@ -1,7 +1,10 @@
 import actions from "../../actions";
 import Result from "../components/result";
-import hot from './utils/hot';
+import { connect } from 'react-redux';
 
+/**
+ * @param {import("../../reducers/app").State} state 
+ */
 const MapStateToProps = (state) => {
     let { times_right, times_wrong } = state.question;
     let lenTimeRight = times_right.length;
@@ -25,5 +28,4 @@ const MapDispatchToProps = (dispatch) => {
     };
 };
 
-
-export default hot(module, MapStateToProps, MapDispatchToProps, Result);
+export default connect(MapStateToProps, MapDispatchToProps)(Result);

@@ -17,7 +17,9 @@ export default (baseUrl, initialState, reducerCreator) => {
 
     const isDevelopment = process.env.NODE_ENV === 'development';
 
+    //@ts-ignore
     if (isDevelopment && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) {
+        //@ts-ignore
         enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__());
     }
 

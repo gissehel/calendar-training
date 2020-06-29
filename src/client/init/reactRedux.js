@@ -1,5 +1,6 @@
 import exportValues from '../utils/exportValues';
 
+
 class ReactReduxInit {
     constructor(initView, initRedux) {
         this._providers = [];
@@ -17,8 +18,17 @@ class ReactReduxInit {
         this._providers.push(provider);
     }
 
+    /**
+     * @param {Element} data
+     */
     set reducer(data) { this._reducer = data; }
+    /**
+     * @param {Element} data
+     */
     set rootElement(data) { this._rootElement = data; }
+    /**
+     * @param {string} data
+     */
     set baseUrl(data) { this._baseUrl = data; }
     set routes(data) { this._routes = data; }
     set store(data) { this._store = data; }
