@@ -23,7 +23,7 @@ jobs:
         run: yarn
 
       - name: Build with yarn
-        run: yarn buildgh
+        run: yarn build
 
       - name: Run tests with yarn
         run: yarn test
