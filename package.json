@@ -7,6 +7,7 @@
     "start": "NODE_ENV=development parcel server ./src/index.html --host 0.0.0.0 --port 3000",
     "watch": "NODE_ENV=development parcel watch ./src/index.html --host 0.0.0.0 --port 3000",
     "build": "NODE_ENV=production parcel build ./src/index.html --no-minify --public-url /",
+    "buildgh": "NODE_ENV=production parcel build ./src/index.html --no-minify --public-url /calendar-training/",
     "test": "jest",
     "storybook": "start-storybook -p 3002",
     "build-storybook": "build-storybook"
