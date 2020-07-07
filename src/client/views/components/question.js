@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import { Message, Button } from 'semantic-ui-react';
 import classNames from 'classnames';
@@ -12,9 +13,9 @@ import './question.css';
  * @property {string[]} keys The keys to bind
  */
 
- /**
-  * @type {DayInfo[]}
-  */
+/**
+ * @type {DayInfo[]}
+ */
 const dayInfos = [
     { index: 1, keys: ['1'] },
     { index: 2, keys: ['2'] },
@@ -31,9 +32,10 @@ const dayInfos = [
  * @returns {Object<number, string>}
  */
 const getWeekDaysForLand = (lang) => {
+    /** @type {Object<number, string>} */
     const weekdays = {}
     const formatter = new Intl.DateTimeFormat(lang, { 'weekday': 'short' });
-    const basedate = 1 * new Date('1905-01-01')
+    const basedate = new Date('1905-01-01').getTime();
     dayInfos.map(({ index }) => {
         weekdays[index] = formatter.format(new Date(basedate + index * 24 * 60 * 60 * 1000))
     })
@@ -93,6 +95,9 @@ class Question extends React.Component {
         const weekdays = getWeekDaysForLand(lang)
 
         return <Message className='messagebox'>
+            <Helmet>
+                <title>Calendar training - {title}</title>
+            </Helmet>
             <Message.Header className='title'>{title}</Message.Header>
             <Message.Content>
                 <div className='buttons'>

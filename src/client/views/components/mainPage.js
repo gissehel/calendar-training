@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import Question from "../containers/question";
 import QuizzMain from "../containers/quizzmain";
@@ -9,6 +10,9 @@ import './mainPage.css'
 
 const MainPage = ({ is_start, is_question, is_answer, is_result }) => {
     return <div className='mainPage'>
+        <Helmet>
+            <title>Calendar training</title>
+        </Helmet>
         {
             is_start ? <QuizzMain /> : null
         }

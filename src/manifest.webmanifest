@@ -1,6 +1,6 @@
 {
-  "short_name": "express-react-redux-boilerplate",
-  "name": "Express + React + Redux + Weppack 4 + babel 7 + hot reload server + hot reload client",
+  "short_name": "calendar-training",
+  "name": "Calendar training",
   "icons": [
     {
       "src": "favicon.ico",

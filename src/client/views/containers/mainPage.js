@@ -13,7 +13,11 @@ const MapStateToProps = (state) => {
     };
 };
 
+/**
+ * @param {import("react").Dispatch<import("redux").Action>} dispatch 
+ */
 const MapDispatchToProps = (dispatch) => {
+    // @ts-ignore
     window.dispatch = dispatch;
 
     return {

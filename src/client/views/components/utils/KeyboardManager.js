@@ -1,20 +1,36 @@
 /**
- * @type {Object<string, ()=>{}}
+ * @type {Object<string, ()=>void>}
  */
 const bindedKeys = {};
 let binded = false;
 let domElement = null;
 
 /**
+ * The InputApiKey structure
+ * @typedef {Object} InputApiKey
+ * @property {string} keyName The keyName of the key
+ * @property {boolean=} Ctrl true if the Ctrl key should be pressed
+ * @property {boolean=} Alt true if the Alt key should be pressed
+ * @property {boolean=} Shift true if the shift key should be pressed
+ * @property {boolean=} Meta true if the Meta key should be pressed
+ * @property {string=} name The fully qualified name of the key
+ */
+
+/**
  * The ApiKey structure
  * @typedef {Object} ApiKey
  * @property {string} keyName The keyName of the key
- * @property {bool} Ctrl true if the Ctrl key should be pressed
- * @property {bool} Alt true if the Alt key should be pressed
- * @property {bool} Shift true if the shift key should be pressed
- * @property {bool} Meta true if the Meta key should be pressed
+ * @property {boolean} Ctrl true if the Ctrl key should be pressed
+ * @property {boolean} Alt true if the Alt key should be pressed
+ * @property {boolean} Shift true if the shift key should be pressed
+ * @property {boolean} Meta true if the Meta key should be pressed
  * @property {string} name The fully qualified name of the key
  */
+
+/**
+ * @typedef {string|InputApiKey} KeyEntry
+ */
+
 
 /**
  * The key mods order
@@ -23,7 +39,7 @@ const modOrder = ['Ctrl', 'Alt', 'Shift', 'Meta'];
 
 /**
  * Get the correct canonical name for a key
- * @param {ApiKey} key 
+ * @param {InputApiKey} key
  * @returns {string}
  */
 export const getCanonName = (key) => [...modOrder].reverse().reduce((name, modName) => key[modName] ? `${modName}+${name}` : name, key.keyName);
@@ -35,26 +51,26 @@ export const getCanonName = (key) => [...modOrder].reverse().reduce((name, modNa
  */
 export const getCanonNameForEvent = (event) => [...modOrder].reverse().reduce((name, modName) => event[modName.toLowerCase() + "Key"] ? `${modName}+${name}` : name, event.key);
 
+
+/**
+ * @param {KeyEntry} keyEntry 
+ * @return {InputApiKey}
+ */
+export const getInputApiKey = (keyEntry) => {
+    if (typeof (keyEntry) === 'object') {
+        return keyEntry;
+    }
+    return { keyName: keyEntry };
+}
+
 /**
  * Parse a key and returns an API Key
  * 
- * @param {string} keyName The name of the key
- * @param {Object} params The params
- * @param {boolean} params.Ctrl true if the key should be used with Ctrl
- * @param {boolean} params.Alt true if the key should be used with Alt
- * @param {boolean} params.Shift true if the key should be used with Shift
- * @param {boolean} params.Meta true if the key should be used with Meta
+ * @param {KeyEntry} keyEntry The name of the key
  * @return {ApiKey}
  */
-export const parseApiKey = (keyName, params) => {
-    if (params === undefined && typeof (keyName) === 'object') {
-        params = keyName;
-        keyName = params.keyName;
-    }
-    if (params === undefined) {
-        params = {};
-    }
-    const { Ctrl, Alt, Shift, Meta } = params;
+export const parseApiKey = (keyEntry) => {
+    let { keyName, Ctrl, Alt, Shift, Meta } = getInputApiKey(keyEntry);
     const name = getCanonName({ keyName, Ctrl, Alt, Shift, Meta });
     return { keyName, Ctrl, Alt, Shift, Meta, name };
 }
@@ -111,17 +127,12 @@ export const useElement = (element) => {
 /**
  * Bind a code to a key
  * 
- * @param {string} keyName The name of the key
- * @param {()=>{}} code The code to bind
- * @param {Object} params The params
- * @param {boolean} params.Ctrl true if the key should be used with Ctrl
- * @param {boolean} params.Alt true if the key should be used with Alt
- * @param {boolean} params.Shift true if the key should be used with Shift
- * @param {boolean} params.Meta true if the key should be used with Meta
+ * @param {()=>void} code The code to bind
+ * @param {KeyEntry} keyEntry The params
  * @return {void}
  */
-export const bindKey = (code, ...params) => {
-    const key = parseApiKey(...params);
+export const bindKey = (code, keyEntry) => {
+    const key = parseApiKey(keyEntry);
     const { name } = key;
 
     // This will remove the potentially existing binding for the name name.
@@ -132,16 +143,11 @@ export const bindKey = (code, ...params) => {
 /**
  * Unbind code to a key
  * 
- * @param {string} keyName The name of the key
- * @param {Object} params The params
- * @param {boolean} params.Ctrl true if the key should be used with Ctrl
- * @param {boolean} params.Alt true if the key should be used with Alt
- * @param {boolean} params.Shift true if the key should be used with Shift
- * @param {boolean} params.Meta true if the key should be used with Meta
+ * @param {KeyEntry} keyEntry The name of the key
  * @return {void}
  */
-export const unbindKey = (...params) => {
-    const key = parseApiKey(...params);
+export const unbindKey = (keyEntry) => {
+    const key = parseApiKey(keyEntry);
     const { name } = key;
 
     if (name) {
@@ -156,6 +162,6 @@ export const unbindKey = (...params) => {
  * @returns {void}
  */
 export const clearKeys = () => {
-    bindedKeys = {};
+    Object.keys(bindedKeys).forEach((key) => delete bindedKeys[key]);
     ensureBinding();
 }
