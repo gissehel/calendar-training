@@ -33,7 +33,7 @@ jobs:
 
       - name: Create test & storybook
         if: success()
-        run: mkdir -p dist/test; mv test-report.html dist/test/index.html; mv storybook-static dist/storybook; sed -i -e 's/<base href=".*">/<base href="\/calendar-training\/">/' dist/calendar-training/index.html
+        run: mkdir -p dist/test; mv test-report.html dist/test/index.html; mv storybook-static dist/storybook; sed -i -e 's/<base href=".*">/<base href="\/calendar-training\/">/' dist/index.html
 
       - name: Deploy to GitHub Pages
         if: success()
